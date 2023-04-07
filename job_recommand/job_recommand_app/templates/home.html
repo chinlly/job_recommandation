@@ -1,0 +1,16 @@
+{%extends 'index.html'%}
+{% block content %}
+<div class="title">
+    <h1>Job you may be interested</h1>
+</div>
+{%for job in job_listings %}
+<div class="list">
+    <p><span>Job Title:</span> {{job.title}}</p>
+    <p><span>Company:</span> {{job.company}}</p>
+    <p><span>Location:</span> {{job.location.3}}, {{job.location.2}}, {{job.location.1}}, {{job.location.0}}</p>
+    <p><span>link:</span> {{job.url}}</p>
+
+</div>
+{% endfor %}
+
+{% endblock %}

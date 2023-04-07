@@ -1,0 +1,77 @@
+body{
+margin: 0;
+padding: 0;
+background: #0cb3f745;
+height: 15vh;
+align-items:center;
+}
+nav{
+    position:relative;
+    height:30px;
+
+}
+nav .btn{
+position:absolute;
+right:10px;
+
+}
+.title{
+    text-align:center;
+}
+
+nav .profile-btn{
+background: #3f51b5d1;
+text-decoration:none;
+font-size:2px;
+padding:9px 18px;
+margin:5px;
+color:#fff;
+border-radius:4px;
+}
+
+nav .logout-btn{
+background: #3f51b5d1;
+text-decoration:none;
+font-size:2px;
+padding:9px 18px;
+margin:5px;
+color:#fff;
+border-radius:4px;
+}
+
+nav .register-btn{
+background: #3f51b5d1;
+text-decoration:none;
+font-size:2px;
+padding:9px 18px;
+margin:5px;
+color:#fff;
+border-radius:4px;
+}
+
+nav .login-btn{
+background: #3f51b5d1;
+text-decoration:none;
+font-size:2px;
+padding:9px 18px;
+margin:5px;
+color:#fff;
+border-radius:4px;
+}
+
+.list {
+position:relative;
+width:auto;
+margin:40px 8%;
+padding: 10px;
+background:#03aef445;
+border-radius:8px;
+}
+span{
+font-weight:600;
+}
+p{
+    width:auto;
+    font-size:4px;
+    font-family: "Trebuchet MS";
+}
