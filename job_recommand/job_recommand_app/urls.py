@@ -4,8 +4,9 @@ from . import views
 
 #define the routers of the application
 urlpatterns = [
-    path('', views.homePage, name="home"),
+    path('', views.indexPage, name="index"),
     path('register', views.registerPage, name="register"),
     path('login', views.loginPage, name="login"),
-    path('logout',views.signout, name="logout")
+    path('logout',views.signout, name="logout"),
+    path('profile',views.profile, name="profile"),
                ]
