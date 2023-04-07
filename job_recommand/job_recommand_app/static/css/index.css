@@ -19,6 +19,26 @@ right:10px;
     text-align:center;
 }
 
+nav .profile-btn{
+background: #3f51b5d1;
+text-decoration:none;
+font-size:2px;
+padding:9px 18px;
+margin:5px;
+color:#fff;
+border-radius:4px;
+}
+
+nav .logout-btn{
+background: #3f51b5d1;
+text-decoration:none;
+font-size:2px;
+padding:9px 18px;
+margin:5px;
+color:#fff;
+border-radius:4px;
+}
+
 nav .register-btn{
 background: #3f51b5d1;
 text-decoration:none;
