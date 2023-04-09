@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import ProfileForm
+import requests
 
 # Create your views here.
 # def test(request):
@@ -10,8 +11,40 @@ from .forms import ProfileForm
 #     user.save()
 #     test_user = Account.objects.all()
 #     return render(request, "test.html", {'user': test_user})
-def indexPage(request):
-    return render(request,'index.html')
+
+# def indexPage(request):
+#     return render(request,'index.html')
+
+
+def homePage(request):
+
+    url = "https://api.adzuna.com/v1/api/jobs/us/search/1"
+
+    params = {
+        "app_id": "ad594a9d",
+        "app_key": "740a7e78f8f00020c045cd46e59d6932",
+        "what": "software",
+        "results_per_page": 2,
+        "content-type": "application/json"
+    }
+    response = requests.get(url, params=params)
+    data = response.json()
+    results = data['results']
+
+
+    job_listings = []
+    for result in results:
+        job = {"title": result['title'], "location": result['location']['area'],
+               "company": result['company']['display_name'], "url": result['redirect_url'],
+               "description":result['description']}
+        job_listings.append(job)
+
+
+
+
+    return render(request, 'home.html', {'job_listings': job_listings})
+
+
 def registerPage(request):
     if request.method == "POST":
         username = request.POST["username"]
