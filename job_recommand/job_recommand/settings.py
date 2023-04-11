@@ -91,9 +91,9 @@ WSGI_APPLICATION = "job_recommand.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'user_job_db',
+        'NAME': 'my_database',
         'USER': 'root',
-        'PASSWORD': 'root123',
+        'PASSWORD': '123456',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {
