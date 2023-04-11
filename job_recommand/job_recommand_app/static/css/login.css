@@ -98,3 +98,11 @@ cursor:pointer;
 outline:none;
 }
 
+.register-link {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+
