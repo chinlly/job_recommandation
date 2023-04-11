@@ -64,7 +64,8 @@ def registerPage(request):
         user = User.objects.create_user(username=username, password=password)
         user.save()
         messages.success(request, "your Account has been created successfully")
-        return render(request, 'login.html')
+        # return render(request, 'profile.html')
+        return redirect('profile')
 
     return render(request, 'register.html')
 
@@ -80,10 +81,11 @@ def loginPage(request):
         if user is not None:  # if it is authenticated
             login(request, user)
             print(request.method)
-            return render(request, "index.html", {'username': username})
+            # return render(request, "index.html", {'username': username})
+            return redirect('home')
         else:
             messages.error(request, "you are not authenicated")
-            return render(request, 'home.html', {'user': user})
+            return render(request, 'index.html', {'username': username})
 
     return render(request, 'login.html')
 
@@ -99,7 +101,7 @@ def profile(request):
         form = ProfileForm(request.POST)
         if form.is_valid():
             form.save()
-        # return render(request,"post/new.html",{"form":form} )
+        # return render(request, "profile.html", {"form": form})
     else:
         form = ProfileForm()
     return render(request, "profile.html", {"form": form})
