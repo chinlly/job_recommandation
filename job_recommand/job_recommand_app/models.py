@@ -5,6 +5,7 @@ from django.db import models
 
 class Profile(models.Model):
     name = models.CharField(null = True, max_length=20)
+    keyword = models.CharField(null = True, max_length=20)
     skills = models.TextField(null = True, blank = True)
     keyword = models.CharField(null = True, max_length=20)
 
