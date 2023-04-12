@@ -4,6 +4,10 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import Profile
 import requests
+import pandas as pd
+import ast
+import ast
+import numpy as np
 
 
 # Create your views here.
@@ -19,11 +23,30 @@ import requests
 
 def homePage(request):
     url = "https://api.adzuna.com/v1/api/jobs/us/search/1"
+    user = get_user(request)
+    print(user)
+    profile_exist = Profile.objects.filter(name=user).exists()
+    if profile_exist == False:
+        jobs = "software"
+    else:
+        profile = Profile.objects.get(name=user)
+        df = pd.read_csv("C:\TCD\Adative_App\job_recommand\job_recommand_app\static\linkedin.csv")
+        df = df.drop(axis=1,columns=["linkedin","profile_picture","description","Experience","Name","skills","location"])
+        df = df.dropna()
+        user_input = profile.skills
+        print("User Skills:",user_input)
+        df['similarity'] = df['clean_skills'].apply(lambda x: jaccard_similarity(set(ast.literal_eval(x)),set(user_input)))
+        N = 1
+        print(df['similarity'])
+        recommended_jobs = df.nlargest(N, 'similarity')
+        print(recommended_jobs['index'],recommended_jobs['category'],recommended_jobs['position'])
+        print(recommended_jobs['category'].iloc[0])
+        jobs = recommended_jobs['category'].iloc[0]
 
     params = {
         "app_id": "ad594a9d",
         "app_key": "740a7e78f8f00020c045cd46e59d6932",
-        "what": "software",
+        "what": jobs,
         "results_per_page": 2,
         "content-type": "application/json"
     }
@@ -118,3 +141,10 @@ def profile(request):
     else:
         print('get')
     return render(request, "profile.html")
+
+
+
+def jaccard_similarity(set1: set, set2: set) -> float:
+    intersection = set1.intersection(set2)
+    union = set1.union(set2)
+    return len(intersection) / len(union)
