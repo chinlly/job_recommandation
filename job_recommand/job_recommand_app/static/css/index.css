@@ -1,10 +1,13 @@
 body{
 margin: 0;
 padding: 0;
-background: #0cb3f745;
-height: 15vh;
-align-items:center;
+font-family: montserrat;
+/*background-image: url('');*/
+background: linear-gradient(120deg,#2980b9, #8e44ad);
+height: 80vh;
+overflow: hidden;
 }
+
 nav{
     position:relative;
     height:30px;
@@ -67,6 +70,7 @@ padding: 10px;
 background:#03aef445;
 border-radius:8px;
 }
+
 span{
 font-weight:600;
 }
@@ -74,4 +78,13 @@ p{
     width:auto;
     font-size:4px;
     font-family: "Trebuchet MS";
+}
+
+.container {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  width: 70%;
+  height:100% ;
+  background-color: rgba(255, 255, 255, 0.5);
 }
