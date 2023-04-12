@@ -1,8 +1,8 @@
-from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout, get_user
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import ProfileForm
+from .models import Profile
 import requests
 
 
@@ -38,7 +38,7 @@ def homePage(request):
                "description": result['description']}
         job_listings.append(job)
 
-    print(job_listings)
+    # print(job_listings)
 
     return render(request, 'home.html', {'job_listings': job_listings})
 
@@ -63,6 +63,7 @@ def registerPage(request):
 
         user = User.objects.create_user(username=username, password=password)
         user.save()
+
         messages.success(request, "your Account has been created successfully")
         # return render(request, 'profile.html')
         return redirect('profile')
@@ -71,7 +72,6 @@ def registerPage(request):
 
 
 def loginPage(request):
-
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
@@ -81,6 +81,7 @@ def loginPage(request):
         if user is not None:  # if it is authenticated
             login(request, user)
             print(request.method)
+
             # return render(request, "index.html", {'username': username})
             return redirect('home')
         else:
@@ -98,10 +99,22 @@ def signout(request):
 
 def profile(request):
     if request.method == "POST":
-        form = ProfileForm(request.POST)
-        if form.is_valid():
-            form.save()
+        user = get_user(request)
+        profile_exist = Profile.objects.filter(name=user).exists()
+        if profile_exist == False:
+            profile = Profile(name=user, skills=request.POST["list"])
+
+        else:
+            profile = Profile.objects.get(name=user)
+            profile.skills = request.POST["list"]
+        profile.save()
+
+        # print(request.POST)
+
+        # form = ProfileForm(request.POST)
+        # if form.is_valid():
+        #     form.save()
         # return render(request, "profile.html", {"form": form})
     else:
-        form = ProfileForm()
-    return render(request, "profile.html", {"form": form})
+        print('get')
+    return render(request, "profile.html")

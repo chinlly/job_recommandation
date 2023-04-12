@@ -6,18 +6,18 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Job Recommand</title>
-
-    <link rel="stylesheet" href='static/css/index.css'>
+{%load static%}
+    <link rel="stylesheet" href="{%static 'index.css'%}">
 </head>
 <body>
 
-
+<div class="container">
 {%if user.is_authenticated%}
 <nav>
     <p>hello{{username}}, welcome to use job recommodation</p>
     <div class="btn">
 
-        <a href="#" class="profile-btn">profile</a>
+        <a href="profile" class="profile-btn">profile</a>
         <a href="logout" class="logout-btn">signout</a>
     </div>
 
@@ -32,6 +32,6 @@
 {%endif%}
 {% block content %}{% endblock %}
 
-
+</div>
 </body>
 </html>
