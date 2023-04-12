@@ -1,5 +1,15 @@
-{% block title %}Create Post {% endblock %}
-{% block content %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>POST</title>
+    <link rel="stylesheet" href="static/css/login.css"}>
+</head>
+<body>
+<div class="center">
 <h2>Create a Post</h2>
 <form method="post">
     <table>
@@ -8,4 +18,6 @@
     {% csrf_token %}
     <button type="submit">Create</button>
 </form>
-{% endblock %}
+</div>
+</body>
+</html>
