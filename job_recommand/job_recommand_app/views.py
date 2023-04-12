@@ -1,8 +1,8 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Account
+from .models import Profile
 import requests
 
 
@@ -38,7 +38,7 @@ def homePage(request):
                "description": result['description']}
         job_listings.append(job)
 
-    #print(job_listings)
+    # print(job_listings)
 
     return render(request, 'home.html', {'job_listings': job_listings})
 
@@ -63,8 +63,6 @@ def registerPage(request):
 
         user = User.objects.create_user(username=username, password=password)
         user.save()
-        account = Account(name=username, pwd = password)
-        account.save()
 
         messages.success(request, "your Account has been created successfully")
         # return render(request, 'profile.html')
@@ -83,6 +81,7 @@ def loginPage(request):
         if user is not None:  # if it is authenticated
             login(request, user)
             print(request.method)
+
             # return render(request, "index.html", {'username': username})
             return redirect('home')
         else:
@@ -99,13 +98,18 @@ def signout(request):
 
 
 def profile(request):
-    accounts = Account.objects.all()
-    print(accounts)
-
-    # account = get_object_or_404(Account, name = '1')
-    # print(account)
     if request.method == "POST":
-        print(request)
+        user = get_user(request)
+        profile_exist = Profile.objects.filter(name=user).exists()
+        if profile_exist == False:
+            profile = Profile(name=user, skills=request.POST["list"])
+
+        else:
+            profile = Profile.objects.get(name=user)
+            profile.skills = request.POST["list"]
+        profile.save()
+
+        # print(request.POST)
 
         # form = ProfileForm(request.POST)
         # if form.is_valid():
