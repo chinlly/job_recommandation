@@ -7,6 +7,7 @@
 <body>
 <nav>
     <div class="nav-content">
+
         <div class="btn-group">
             <a href="/" class="logout-btn nav-btn">Home</a>
         </div>
@@ -67,7 +68,7 @@
 
     // Attach event listener to add button
     addButton.addEventListener('click', function () {
-        const value = input.value.toLowerCase();// Get the current value of the input field
+        const value = input.value;// Get the current value of the input field
         list.push(value); // Add the entered text to the list // Create a new list item element and add it to the list container
         const listItem = document.createElement('div');
         listItem.className = "list-item"

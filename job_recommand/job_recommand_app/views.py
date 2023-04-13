@@ -30,24 +30,28 @@ def homePage(request):
         jobs = "software"
     else:
         profile = Profile.objects.get(name=user)
-        df = pd.read_csv("C:\TCD\Adative_App\job_recommand\job_recommand_app\static\linkedin.csv")
-        df = df.drop(axis=1,columns=["linkedin","profile_picture","description","Experience","Name","skills","location"])
+        df = pd.read_csv("linkedin.csv")
+        df = df.drop(axis=1, columns=["linkedin","profile_picture","description","Experience","Name","skills","location"])
         df = df.dropna()
         user_input = profile.skills
         print("User Skills:",user_input)
         df['similarity'] = df['clean_skills'].apply(lambda x: jaccard_similarity(set(ast.literal_eval(x)),set(user_input)))
         N = 1
-        print(df['similarity'])
+        # print(df['similarity'])
         recommended_jobs = df.nlargest(N, 'similarity')
-        print(recommended_jobs['index'],recommended_jobs['category'],recommended_jobs['position'])
-        print(recommended_jobs['category'].iloc[0])
+        # print(recommended_jobs['index'],recommended_jobs['category'],recommended_jobs['position'])
+        # print(recommended_jobs['category'].iloc[0])
         jobs = recommended_jobs['category'].iloc[0]
-
+        user = get_user(request)
+        print(jobs)
+        profile = Profile.objects.get(name=user)
+        profile.keyword = jobs
+        profile.save()
     params = {
         "app_id": "ad594a9d",
         "app_key": "740a7e78f8f00020c045cd46e59d6932",
         "what": jobs,
-        "results_per_page": 2,
+        "results_per_page": 10,
         "content-type": "application/json"
     }
     response = requests.get(url, params=params)
@@ -88,8 +92,10 @@ def registerPage(request):
         user.save()
 
         messages.success(request, "your Account has been created successfully")
-        # return render(request, 'profile.html')
-        return redirect('profile')
+        authenticate(username=username, password=password)
+        login(request, user)
+        return render(request, 'profile.html')
+        # return redirect("home")
 
     return render(request, 'register.html')
 
@@ -132,12 +138,14 @@ def profile(request):
             profile.skills = request.POST["list"]
         profile.save()
 
-        # print(request.POST)
+        print(request.POST)
+        print("1s")
 
         # form = ProfileForm(request.POST)
         # if form.is_valid():
         #     form.save()
         # return render(request, "profile.html", {"form": form})
+        return redirect('home')
     else:
         print('get')
     return render(request, "profile.html")
