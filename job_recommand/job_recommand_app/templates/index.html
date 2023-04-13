@@ -5,32 +5,33 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Job Recommand</title>
-{%load static%}
-    <link rel="stylesheet" href="{%static 'index.css'%}">
+    <title>Job Recommend</title>
+    <link rel="stylesheet" href='../static/css/index.css'>
 </head>
 <body>
 
+{% if user.is_authenticated %}
+    <nav>
+        <div class="nav-content">
+            <p>hello{{ username }}, welcome to use job recommendation</p>
+            <div class="btn-group">
+                <a href="profile" class="profile-btn nav-btn">profile</a>
+                <a href="logout" class="logout-btn nav-btn">signout</a>
+            </div>
+        </div>
+    </nav>
+{% else %}
+    <nav>
+        <div class="nav-content">
+            <div class="btn-group">
+                <a href="register" class="register-btn nav-btn">register</a>
+                <a href="login" class="login-btn nav-btn">login</a>
+            </div>
+        </div>
+    </nav>
+{% endif %}
 <div class="container">
-{%if user.is_authenticated%}
-<nav>
-    <p>hello{{username}}, welcome to use job recommodation</p>
-    <div class="btn">
-
-        <a href="profile" class="profile-btn">profile</a>
-        <a href="logout" class="logout-btn">signout</a>
-    </div>
-
-</nav>
-{%else%}
-<nav>
-    <div class="btn">
-        <a href="register" class="register-btn">register</a>
-        <a href="login" class="login-btn">login</a>
-    </div>
-</nav>
-{%endif%}
-{% block content %}{% endblock %}
+    {% block content %}{% endblock %}
 
 </div>
 </body>

@@ -1,90 +1,75 @@
-body{
-margin: 0;
-padding: 0;
-font-family: montserrat;
-/*background-image: url('');*/
-background: linear-gradient(120deg,#2980b9, #8e44ad);
-height: 80vh;
-overflow: hidden;
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: montserrat;
+    /*background-image: url('');*/
+    background: linear-gradient(120deg, #2980b9, #8e44ad);
 }
 
-nav{
-    position:relative;
-    height:30px;
-
-}
-nav .btn{
-position:absolute;
-right:10px;
-
-}
-.title{
-    text-align:center;
+.nav-content {
+    position: fixed;
+    background-color: #fff;
+    width: 100%;
+    padding: 20px 20px;
+    height: 27px;
+    display: flex;
 }
 
-nav .profile-btn{
-background: #3f51b5d1;
-text-decoration:none;
-font-size:2px;
-padding:9px 18px;
-margin:5px;
-color:#fff;
-border-radius:4px;
+.title {
+    text-align: center;
 }
 
-nav .logout-btn{
-background: #3f51b5d1;
-text-decoration:none;
-font-size:2px;
-padding:9px 18px;
-margin:5px;
-color:#fff;
-border-radius:4px;
+.btn-group {
+    position: absolute;
+    right: 5%;
+}
+.nav-content .nav-btn {
+    text-decoration: none;
+    padding: 3px 5px;
+    font-size: 16px;
+    background: #3f51b5d1;
+    border-radius: 4px;
+    color: #fff;
 }
 
-nav .register-btn{
-background: #3f51b5d1;
-text-decoration:none;
-font-size:2px;
-padding:9px 18px;
-margin:5px;
-color:#fff;
-border-radius:4px;
-}
-
-nav .login-btn{
-background: #3f51b5d1;
-text-decoration:none;
-font-size:2px;
-padding:9px 18px;
-margin:5px;
-color:#fff;
-border-radius:4px;
-}
+/*nav .nav-btn {*/
+/*    background: #3f51b5d1;*/
+/*    text-decoration: none;*/
+/*    font-size: 2px;*/
+/*    padding: 9px 18px;*/
+/*    margin: 5px;*/
+/*    color: #fff;*/
+/*    border-radius: 4px;*/
+/*}*/
 
 .list {
-position:relative;
-width:auto;
-margin:40px 8%;
-padding: 10px;
-background:#03aef445;
-border-radius:8px;
+    margin: 10%;
+    overflow-wrap: break-word;
 }
 
-span{
-font-weight:600;
+.item {
+    margin: 10px 0;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.50);
+    border-radius: 8px;
 }
-p{
-    width:auto;
-    font-size:4px;
+
+span {
+    font-weight: 600;
+}
+
+p {
+    width: auto;
+    font-size: 4px;
     font-family: "Trebuchet MS";
 }
 
 .container {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%);
-  width: 70%;
-  height:100% ;
-  background-color: rgba(255, 255, 255, 0.5);
+    width: 70%;
+    margin: auto;
+    height: 100%;
+    padding: 67px 5% 5%;
+    min-height: 100vh;
+    background-color: rgba(255, 255, 255, 0.5);
 }
