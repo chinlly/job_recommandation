@@ -1,23 +1,34 @@
-{% block title %}Input your skills {% endblock %}
-{% block content %}
-
 <html>
 <head>
     <title>Autocomplete Example with Add, Clear, and Push Buttons</title>
+    <link rel="stylesheet" href='../static/css/profile.css'>
 </head>
+
 <body>
-{% csrf_token %}
-<div>
-    <div>
-        <input type="text" id="autocomplete-input"/>
-        <button id="add-button">Add</button>
-        <button id="clear-button">Clear</button>
+<nav>
+    <div class="nav-content">
+        <div class="btn-group">
+            <a href="/" class="logout-btn nav-btn">Home</a>
+        </div>
     </div>
-    <div id="autocomplete-options"></div>
-    <div id="list"></div>
-    <button id="push-button">Push to Database</button>
-    <a href="\">Home</a>
+</nav>
+<div class="container">
+    {% csrf_token %}
+
+    <h1 class="title">Input Your Skills</h1>
+
+    <div class="search">
+        <div class="ipt-content">
+            <input type="text" id="autocomplete-input"/>
+            <span id="add-button">Add</span>
+            <span id="clear-button">Clear</span>
+            <span id="push-button" title="Push to Database.">Push</span>
+        </div>
+        <div id="autocomplete-options"></div>
+        <div id="list"></div>
+    </div>
 </div>
+
 
 <script>
     // List of possible autocomplete options
@@ -33,73 +44,67 @@
     let list = [];
 
 
-
     // Attach event listener to input field
-    input.addEventListener('input', function() {
-      const value = input.value.toLowerCase();// Get the current value of the input field
-      const filteredOptions = options.filter(option =>
-        option.toLowerCase().startsWith(value)
-      );
+    input.addEventListener('input', function () {
+        const value = input.value.toLowerCase();// Get the current value of the input field
+        const filteredOptions = options.filter(option =>
+            option.toLowerCase().startsWith(value)
+        );
 
-
-
-      optionsContainer.innerHTML = ''; // Display the filtered options in the options container
-      filteredOptions.forEach(option => {
-        const optionElement = document.createElement('div');
-        optionElement.innerText = option;
-        optionElement.addEventListener('click', function() {
-          input.value = option;  // Update the input field when an option is clicked
-          optionsContainer.innerHTML = '';
+        optionsContainer.innerHTML = ''; // Display the filtered options in the options container
+        filteredOptions.forEach(option => {
+            const optionElement = document.createElement('div');
+            optionElement.innerText = option;
+            optionElement.className = "option-item"
+            optionElement.addEventListener('click', function () {
+                input.value = option;  // Update the input field when an option is clicked
+                optionsContainer.innerHTML = '';
+            });
+            optionsContainer.appendChild(optionElement);
         });
-        optionsContainer.appendChild(optionElement);
-      });
     });
 
 
-
     // Attach event listener to add button
-    addButton.addEventListener('click', function() {
-      const value = input.value.toLowerCase();// Get the current value of the input field
-      list.push(value); // Add the entered text to the list // Create a new list item element and add it to the list container
-      const listItem = document.createElement('div');
-      listItem.innerText = value;
-      listContainer.appendChild(listItem);
-      input.value = ''; // Clear the input field
+    addButton.addEventListener('click', function () {
+        const value = input.value.toLowerCase();// Get the current value of the input field
+        list.push(value); // Add the entered text to the list // Create a new list item element and add it to the list container
+        const listItem = document.createElement('div');
+        listItem.className = "list-item"
+        listItem.innerText = value;
+        listContainer.appendChild(listItem);
+        input.value = ''; // Clear the input field
     });
 
 
     // Attach event listener to clear button
-    clearButton.addEventListener('click', function() {
-      // Clear the list and the list container
-      list = [];
-      listContainer.innerHTML = '';
+    clearButton.addEventListener('click', function () {
+        // Clear the list and the list container
+        list = [];
+        listContainer.innerHTML = '';
     });
 
 
-
     // Attach event listener to push button
-    pushButton.addEventListener('click', function() {
-      const xhr = new XMLHttpRequest();
-      const url = '{% url "profile" %}';
-      const csrf_token = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
-      const params = 'list=' + JSON.stringify(list);
-      xhr.open('POST', url, true);
-      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-      xhr.setRequestHeader('X-CSRFToken', csrf_token);
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          //alert(xhr.responseText);
-        }
-      };
-      xhr.send(params);
+    pushButton.addEventListener('click', function () {
+        const xhr = new XMLHttpRequest();
+        const url = '{% url "profile" %}';
+        const csrf_token = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+        const params = 'list=' + JSON.stringify(list);
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('X-CSRFToken', csrf_token);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                //alert(xhr.responseText);
+            }
+        };
+        xhr.send(params);
     });
 
 
 </script>
 </body>
 </html>
-
-
-{% endblock %}
 
 
